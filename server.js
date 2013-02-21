@@ -13,10 +13,6 @@ app.configure(function () {
   app.use('/test/', express.static(__dirname + '/test'));
 });
 
-app.get('/', function (req, res, next) {
-  res.send('hello');
-});
-
 require('http')
   .createServer(app)
   .listen(3000);

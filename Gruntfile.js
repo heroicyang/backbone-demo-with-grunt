@@ -13,7 +13,19 @@ module.exports = function (grunt) {
           baseUrl: 'js',
           path: '{}',
           dir: 'build/',
-          modules: [{ name: 'main' }]
+          modules: [{ name: 'main' }],
+          shim: {
+            'app': {
+              deps: ['lib/underscore-min', 'lib/backbone-min']
+            },
+            'lib/backbone-min': {
+              deps: ['lib/underscore-min'],
+              exports: 'Backbone'
+            },
+            'lib/underscore-min': {
+              exports: '_'
+            }
+          }
         }
       }
     },
