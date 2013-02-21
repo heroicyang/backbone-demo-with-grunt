@@ -1,13 +1,13 @@
 {
-  "name": "grunt-sample",
+  "name": "backbone-demo-with-grunt",
   "version": "0.0.1",
-  "description": "A grunt sample",
+  "description": "A backbone example,build with requirejs and grunt.",
   "main": "server.js",
   "scripts": {
-    "test": "grunt test"
+    
   },
-  "repository": "",
-  "author": "heroic <me@heroicyang.com>",
+  "repository": "git://github.com/heroicyang/backbone-demo-with-grunt.git",
+  "author": "HeroicYang <me@heroicyang.com>",
   "license": "MIT",
   "dependencies": {
     "express": "~3.1.0",
