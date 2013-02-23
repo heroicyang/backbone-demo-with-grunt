@@ -1,5 +1,8 @@
 define(['config'], function (config) {
-  function ApiManager () {
+  var app;
+
+  function ApiManager (_app) {
+    app = _app;
     this.loadGapi();
   }
 
@@ -23,8 +26,31 @@ define(['config'], function (config) {
     }
 
     function handleAuthResult (authResult) {
+      var authTimeout;
 
+      if (authResult && !authResult.error) {
+        if (authResult.expires_in) {
+          authTimeout = (authResult.expires_in - 5 * 60) * 1000;
+          window.setTimeout(checkAuth, authTimeout);
+        }
+
+        app.views.auth.$el.hide();
+        $('#signed-in-container').show();
+      } else {
+        if (authResult && authResult.error) {
+          console.log('Unable to sign in:', authResult.error);
+        }
+        app.views.auth.$el.show();
+      }
     }
+
+    this.checkAuth = function () {
+      gapi.auth.authorize({
+        client_id: config.clientId,
+        scope: config.scopes,
+        immediate: false
+      }, handleAuthResult);
+    };
 
     handleClientLoad();
   };

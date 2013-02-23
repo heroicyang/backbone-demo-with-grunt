@@ -11,7 +11,9 @@ module.exports = function (grunt) {
         options: {
           appDir: 'app/',
           baseUrl: 'js',
-          path: '{}',
+          paths: {
+            text: 'lib/text'
+          },
           dir: 'build/',
           modules: [{ name: 'main' }],
           shim: {
