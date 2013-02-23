@@ -7,6 +7,7 @@ define(['config'], function (config) {
   }
 
   _.extend(ApiManager.prototype, Backbone.Events);
+
   ApiManager.prototype.init = function () {
     var self = this;
 
@@ -44,6 +45,7 @@ define(['config'], function (config) {
       }
     }
 
+    console.log(this);
     this.checkAuth = function () {
       gapi.auth.authorize({
         client_id: config.clientId,

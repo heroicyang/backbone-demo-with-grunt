@@ -4,7 +4,6 @@ define([
   'views/auth'
 ], function(ApiManager, AppView, AuthView) {
   var App = function() {
-    this.views = this.views || {};
     this.views.app = new AppView();
     this.views.app.render();
 
@@ -15,8 +14,9 @@ define([
   };
 
   App.prototype = {
+    views: {},
     connectGapi: function () {
-      this.apiManager = new ApiManager();
+      this.apiManager = new ApiManager(this);
     }
   };
 
