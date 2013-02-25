@@ -8,7 +8,7 @@ Improved from [dailyjs backbone tutorial](http://dailyjs.com/2012/11/29/backbone
 This project requires Grunt `~0.4.0`, so ensure that you installed `grunt-cli` in the global environment.
 
 ````
-npm install --save
+npm install
 grunt default
 ````
 then, open a new terminal window, run the server:  

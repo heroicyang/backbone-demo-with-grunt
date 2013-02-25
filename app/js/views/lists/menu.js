@@ -12,6 +12,8 @@ define(['views/lists/menuitem'], function (ListMenuItemView) {
     },
     render: function () {
       var self = this;
+      this.$el.html('');
+      
       this.collection.each(function (list) {
         var item, sidebarItem;
         item = new ListMenuItemView({

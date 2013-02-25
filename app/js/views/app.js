@@ -1,4 +1,7 @@
-define(['text!templates/app.html'], function (template) {
+define([
+  'text!templates/app.html',
+  'views/lists/add'
+], function (template, AddListView) {
   var AppView = Backbone.View.extend({
     id: 'main',
     tagName: 'div',
@@ -7,7 +10,7 @@ define(['text!templates/app.html'], function (template) {
     template: _.template(template),
 
     events: {
-
+      'click #add-list-button': 'addList'
     },
     initialize: function () {
 
@@ -15,6 +18,16 @@ define(['text!templates/app.html'], function (template) {
     render: function () {
       this.$el.html(this.template());
       return this;
+    },
+    addList: function () {
+      var list = new bTask.collections.lists.model({ title: '' })
+        , form = new AddListView({ model: list })
+        , self = this;
+
+      this.$('#list-editor').html(form.render().el);
+      this.$('input:first').focus();
+
+      return false;
     }
   });
 

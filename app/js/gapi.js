@@ -78,11 +78,15 @@ define(['config'], function (config) {
   };
 
   Backbone.sync = function (method, model, options) {
+    var requestContent = {}
+      , request;
     options = options || {};
 
     switch (method) {
       case 'create':
-
+        requestContent['resource'] = model.toJSON();
+        request = gapi.client.tasks[model.url].insert(requestContent);
+        Backbone.gapiRequest(request, method, model, options);
         break;
       case 'update':
 
@@ -91,7 +95,7 @@ define(['config'], function (config) {
 
         break;
       case 'read':
-        var request = gapi.client.tasks[model.url].list(options.data);
+        request = gapi.client.tasks[model.url].list(options.data);
         Backbone.gapiRequest(request, method, model, options);
         break;
     }
@@ -105,7 +109,11 @@ define(['config'], function (config) {
           options.error(model, res);
         }
       } else if (options.success) {
-        result = res.items;
+        if (res.items) {
+          result = res.items;
+        } else {
+          result = res;
+        }
         options.success(model, result, true, request);
       }
     });

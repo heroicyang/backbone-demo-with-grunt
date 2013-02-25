@@ -1,3 +1,7 @@
 node_modules
 npm-debug.log
+app/css/mocha.css
+app/js/lib/require.js
+app/js/lib/mocha.js
+app/js/lib/chai.js
 build
