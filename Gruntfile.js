@@ -2,8 +2,8 @@ module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
       app: {
-        files: 'app/js/*.js',
-        tasks: ['requirejs', 'copy']
+        files: 'app/js/**/*.js',
+        tasks: ['copy', 'requirejs']
       }
     },
     requirejs: {
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
         files: [
           {
             src: 'node_modules/requirejs/require.js',
-            dest: 'build/js/lib/require.js'
+            dest: 'app/js/lib/require.js'
           }
         ]
       },
@@ -44,15 +44,15 @@ module.exports = function (grunt) {
         files: [
           {
             src: 'node_modules/mocha/mocha.css',
-            dest: 'build/css/mocha.css'
+            dest: 'app/css/mocha.css'
           },
           {
             src: 'node_modules/mocha/mocha.js',
-            dest: 'build/js/lib/mocha.js'
+            dest: 'app/js/lib/mocha.js'
           },
           {
             src: 'node_modules/chai/chai.js',
-            dest: 'build/js/lib/chai.js'
+            dest: 'app/js/lib/chai.js'
           }
         ]
       }
@@ -63,5 +63,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['requirejs', 'copy', 'watch']);
+  grunt.registerTask('default', ['copy', 'requirejs', 'watch']);
 };

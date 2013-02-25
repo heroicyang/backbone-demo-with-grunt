@@ -9,7 +9,7 @@ app.configure(function () {
 
   app.use(express.cookieParser());
 
-  app.use(express.static(__dirname + '/build'));
+  app.use(express.static(__dirname + '/app'));
   app.use('/test/', express.static(__dirname + '/test'));
 });
 
