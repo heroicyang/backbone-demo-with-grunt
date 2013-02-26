@@ -12,7 +12,8 @@ define([
 
     events: {
       'click #add-list-button': 'addList',
-      'click #edit-list-button': 'editList'
+      'click #edit-list-button': 'editList',
+      'click #delete-list-button': 'deleteList'
     },
     initialize: function () {
 
@@ -32,6 +33,12 @@ define([
         model: bTask.views.activeListMenuItem.model
       });
       return this.listForm(form);
+    },
+    deleteList: function () {
+      if (window.confirm('Are you sure you want to delete that list?')) {
+        bTask.views.activeListMenuItem.model.destroy();
+      }
+      return false;
     },
     listForm: function (form) {
       this.$('#list-editor').html(form.render().el);
