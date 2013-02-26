@@ -17,7 +17,13 @@ define(['text!templates/lists/menuitem.html'], function (template) {
       return this;
     },
     open: function () {
-      var self = this;
+      if (bTask.views.activeListMenuItem) {
+        bTask.views.activeListMenuItem.$el.removeClass('active');
+      }
+
+      bTask.views.activeListMenuItem = this;
+      this.$el.addClass('active');
+
       return false;
     }
   });

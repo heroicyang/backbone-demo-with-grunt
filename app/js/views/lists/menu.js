@@ -8,20 +8,29 @@ define(['views/lists/menuitem'], function (ListMenuItemView) {
 
     },
     initialize: function () {
-      this.collection.on('add', this.render, this);
+      this.collection.on('add', this.renderMenuItem, this);
     },
     render: function () {
       var self = this;
-      this.$el.html('');
       
       this.collection.each(function (list) {
-        var item, sidebarItem;
-        item = new ListMenuItemView({
-          model: list
-        });
-        self.$el.append(item.render().el);
+        self.renderMenuItem(list);
       });
       return this;
+    },
+    renderMenuItem: function (model) {
+      var item = new ListMenuItemView({
+        model: model
+      });
+      this.$el.append(item.render().el);
+
+      if (!bTask.views.activeListMenuItem) {
+        bTask.views.activeListMenuItem = item;
+      }
+
+      if (model.get('id') === bTask.views.activeListMenuItem.model.get('id')) {
+        item.open();
+      }
     }
   });
 
