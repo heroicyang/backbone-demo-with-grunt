@@ -9,10 +9,11 @@ define([
     template: _.template(template),
 
     events: {
-      'click .add-task': 'addTask'
+      'submit .add-task': 'addTask'
     },
     initialize: function () {
       this.children = [];
+      this.collection.on('add', this.renderTask, this);
     },
     render: function () {
       this.$el.html(this.template());
@@ -20,19 +21,14 @@ define([
       var $el = this.$('#task-list')
         , self = this;
 
-      this.collection = new Tasks();
       this.collection.fetch({
         data: {
           tasklist: this.model.get('id')
         },
         success: function () {
           self.collection.each(function (task) {
-            var item = new TaskView({
-              model: task,
-              parentView: self
-            });
-            $el.append(item.render().el);
-            self.children.push(item);
+            task.set('tasklist', self.model.get('id'));
+            self.renderTask(task);
           });
         }
       });
@@ -40,7 +36,35 @@ define([
       return this;
     },
     addTask: function () {
+      var $input = this.$('input[name="title"]')
+        , task = new this.collection.model({ tasklist: this.model.get('id') })
+        , self = this;
 
+      task.save({
+        title: $input.val()
+      }, {
+        success: function (model) {
+          self.collection.add(model, { at: 0 });
+        }
+      });
+
+      $input.val('');
+      return false;
+    },
+    renderTask: function (task, list, options) {
+      var item = new TaskView({
+            model: task,
+            parentView: this
+          })
+        , $el = this.$('#task-list');
+
+      if (options && options.at === 0) {
+        $el.prepend(item.render().el);
+      } else {
+        $el.append(item.render().el);
+      }
+
+      this.children.push(item);
     }
   });
 
