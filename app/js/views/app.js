@@ -42,6 +42,7 @@ define([
     },
     listForm: function (form) {
       this.$('#list-editor').html(form.render().el);
+      this.$('#list-editor').show();
       this.$('input:first').focus();
 
       return false;
