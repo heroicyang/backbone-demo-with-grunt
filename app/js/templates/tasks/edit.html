@@ -9,7 +9,11 @@
   </div>
   <div class="control-group">
     <label class="radio">
+      <% if (status === 'needsAction') { %>
+      <input type="radio" name="status" value="needsAction" checked>
+      <% } else { %>
       <input type="radio" name="status" value="needsAction">
+      <% } %>
       Needs action
     </label>
     <label class="radio">
