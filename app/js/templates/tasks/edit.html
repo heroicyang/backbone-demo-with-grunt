@@ -1,0 +1,32 @@
+<fieldset>
+  <legend>
+    Task Properties
+    <a href="#" data-task-id="<%= id %>" class="pull-right delete-task btn"><i class="icon-trash"></i></a>
+  </legend>
+  <div class="control-group">
+    <label for="task_title">Title</label>
+    <input type="text" name="title" class="input-block-level" id="task_title" value="<%= title %>" placeholder="The task's title">
+  </div>
+  <div class="control-group">
+    <label class="radio">
+      <input type="radio" name="status" value="needsAction">
+      Needs action
+    </label>
+    <label class="radio">
+      <% if (status === 'completed') { %>
+      <input type="radio" name="status" value="completed" checked>
+      <% } else { %>
+      <input type="radio" name="status" value="completed">
+      <% } %>
+      Complete
+    </label>
+  </div>
+  <div class="control-group">
+    <label for="task_notes">Task Notes</label>
+    <textarea class="input-block-level" name="notes" id="task_notes" placeholder="Notes about this task"><%= notes %></textarea>
+  </div>
+</fieldset>
+<div class="form-actions">
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+  <button class="cancel btn">Close</button>
+</div>

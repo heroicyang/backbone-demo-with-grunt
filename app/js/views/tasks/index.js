@@ -1,8 +1,9 @@
 define([
   'text!templates/tasks/index.html',
   'views/tasks/task',
+  'views/tasks/edit',
   'collections/tasks'
-], function (template, TaskView, Tasks) {
+], function (template, TaskView, TaskEditView, Tasks) {
   var TaskIndexView = Backbone.View.extend({
     tagName: 'div',
     className: 'row-fluid',
@@ -65,6 +66,15 @@ define([
       }
 
       this.children.push(item);
+    },
+    editTask: function (task) {
+      if (this.taskEditView) {
+        this.taskEditView.remove();
+      }
+      this.taskEditView = new TaskEditView({
+        model: task
+      });
+      this.$('#selected-task').append(this.taskEditView.render().el);
     }
   });
 

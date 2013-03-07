@@ -9,6 +9,8 @@ define(['text!templates/tasks/task.html'], function (template) {
     },
     initialize: function (options) {
       this.parentView = options.parentView;
+      this.model.on('change', this.render, this);
+      this.model.on('destroy', this.remove, this);
     },
     render: function () {
       this.$el.data('taskId', this.model.get('id'));
@@ -22,6 +24,7 @@ define(['text!templates/tasks/task.html'], function (template) {
       }
       this.$el.addClass('active');
       this.parentView.activeTaskView = this;
+      this.parentView.editTask(this.model);
     },
     close: function () {
       this.$el.removeClass('active');
