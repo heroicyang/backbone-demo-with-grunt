@@ -5,7 +5,8 @@ define(['text!templates/tasks/task.html'], function (template) {
     template: _.template(template),
 
     events: {
-      'click': 'open'
+      'click': 'open',
+      'change .check-task': 'toggle'
     },
     initialize: function (options) {
       this.parentView = options.parentView;
@@ -28,6 +29,15 @@ define(['text!templates/tasks/task.html'], function (template) {
     },
     close: function () {
       this.$el.removeClass('active');
+    },
+    toggle: function (e) {
+      this.model.set('status', $(e.currentTarget).attr('checked') ? 'completed' : 'needsAction');
+      if (this.model.get('status') === 'needsAction') {
+        this.model.set('completed', null);
+      }
+
+      this.model.save();
+      return this;
     }
   });
 
